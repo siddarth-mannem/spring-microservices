@@ -48,17 +48,28 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>-->
 
+		<!-- This is used to monitor health of Spring boot application -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
+		<!-- Hal Explorer will helps you to provide simpler way to explore Rest APIs 
+			Provides representation of actuator
+			Display ref Links from hateoas
+		-->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-hal-explorer</artifactId>
 		</dependency>
 
-
+		<!-- hateoas is Used to add reference links via Controller method names instead of hard coded Endpoint value on each methods.
+			"_links": {
+		        "all-users": {
+		            "href": "http://localhost:8080/users"
+		        }
+		    }
+		  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
@@ -76,6 +87,7 @@
 		</dependency>
  -->
 
+		<!-- User for API documentation using Swagger  -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>

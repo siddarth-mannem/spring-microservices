@@ -1,10 +1,13 @@
 package com.in28minutes.rest.webservices.restfulwebservices.exception;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -36,7 +39,12 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Validation Failed",
-				ex.getBindingResult().toString());
+				ex.getBindingResult().getFieldErrors()
+					.stream()
+					// FieldError::getField() + "- " + FieldError::getDefaultMessage
+					//.map(FieldError::getDefaultMessage)
+					.map(e -> e.getField() + " - " + e.getDefaultMessage())
+					.collect(Collectors.joining(", \n ")));
 		return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}	
 }
